@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+      <link rel="stylesheet" href="index.css">
+        <title>HOUSE PRICE PREDICTION</title>
+        <meta name="viewport" charset="UTF-8" content="initial-scale=1.0, width=device-width" />
+        <!-- map core --> 
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+        <!-- map services -->
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+        <!-- source for map ui -->
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+        <!-- style sheet for map UI -->
+        <link rel="stylesheet" type="text/css" href="mapsjs-ui.css"/>
+        <!-- source for map events -->
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script> 
+    </head>
+    <body bgcolor="white"
+            opacity: 5; >
+        
+        <h4 style="text-align: center; color:rgb(17, 18, 18)">GEEKS IN SNEAKS</h4>
+        <h1 style="text-align: center; color:rgb(255, 0, 0)">HOUSE PRICE PREDICTION</h1>
+        
+        <!-- <h2 style="text-align: center; color: rgb(255, 89, 0);"HERE TECHNOLOGY HACKATHON</h2> -->
+        <button name="button" id = "browseHouse"type="button" style="text-align: center; color:white"
+        <style>
+            
+        </style>
+        Browse Houses</button>
+        <!-- Container to hold map -->
+        <div id="mapContainer" style= "align-self: center; width: 100vw; height: 60vh; background-color: #ffffff;"></div> 
+        
+    </body>
+    
+    <script>
+        // Initialize platform with JS API KEY
+        var platform = new H.service.Platform({
+            apikey: "RL0DkhHGtkDqW0kULYhV_azrdD_P2GAhiZZ9Z1x4CRA"
+        });
+        // initializing default layers for the map
+        var defaultLayers = platform.createDefaultLayers();
+        // rendering map within the container on the page
+        var map = new H.Map(
+                document.getElementById('mapContainer'),
+                defaultLayers.vector.normal.map, // rendering vector map with NORMAL map view.
+                {
+                    zoom: 11, // Initial zoom level of map
+                    center: {lat:28.4506512,  lng: 77.5820091} // Initial center of map
+                }); 
+                let positionIcon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="14px" height="24px" viewBox="-0.5 -0.5 14 24" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2022-11-24T20:35:29.527Z&quot; agent=&quot;5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36&quot; version=&quot;20.6.0&quot; etag=&quot;uTVUNsG_RozAf_g265mP&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;Ek1hwoXariDU6xKOjh4u&quot; name=&quot;Page-1&quot;&gt;tZRNU4MwEIZ/DUdngAiVa2nRi6NjZ9RrSraQMbBMGqT117tAgGJ11EN76GyezcfmfTc4LC4Ot5pX+T0KUI7vioPDVo7vR9ch/bfg2IPA83uQaSl65E1gIz/AQtfSWgrYzyYaRGVkNYcpliWkZsa41tjMp+1QzU+teAZnYJNydU5fpDB5T2/8xcTvQGb5cLIXRn2m4MNke5N9zgU2J4itHRZrRNNHxSEG1Wo36NKvS37IjoVpKM1fFvCnRfywCpLoOeXea1Y3L1pdDW68c1XbG9tqzXGQQMmSouXeaHwbRbgmIqQmySWWNN5j3fJlbgpFQ4/CCrQswICm8Zanb1ss4XFiywplaTp7gqUTrIjQHu1h8eilO54bo0Ld1cOSZBWFIWV2UqkZTxK3XWGvBNrA4UexvNECal1AKkofaYpdwCJro21bb2G3aKYmGFo0P/XfMm7bLht3npyhwJrzH6PY70bRNvQsOq9yXrVQYL1VsB55k0sDm4qnbbKhBzt37BupGf3OzPe/iF9i1yGZ5kKSwF88SZILeRK6l/KEhtPD7HInXze2/gQ=&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 2 17 L 12 17" fill="none" stroke="#ffd966" stroke-width="4" stroke-miterlimit="10" transform="rotate(90,7,17)" pointer-events="all"/><ellipse cx="7" cy="6" rx="5" ry="5" fill="none" stroke="#ff3333" stroke-width="2" pointer-events="all"/><ellipse cx="7" cy="6" rx="3" ry="3" fill="none" stroke="#ff3333" stroke-width="2" pointer-events="all"/></g></svg>`
+function getBrowserPosition(){
+
+    if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                // console.log(position.coords);
+                let browserPosition = {lat:position.coords.latitude, lng:position.coords.longitude};
+                let posIcon = new H.map.Icon(positionIcon); // creating an Icon object
+                let marker = new H.map.Marker(browserPosition,{icon:posIcon}); // adding the icon to the marker
+                map.addObject(marker);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser!");
+    }
+};
+getBrowserPosition();
+        
+        // creating default UI for map
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+        // initialize basic map events 
+        var mapEvents = new H.mapevents.MapEvents(map);
+        // Initialize for map behaviour on events
+        var behavior = new H.mapevents.Behavior(mapEvents);
+    </script>
+</html>

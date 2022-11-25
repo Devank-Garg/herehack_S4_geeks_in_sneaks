@@ -1,0 +1,8 @@
+#browseHouse{
+    position: relative;
+    left: 40%;
+    bottom: -500px;
+    height: 40px;
+    width: 300px;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
